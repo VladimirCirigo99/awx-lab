@@ -17,7 +17,7 @@
         validate_certs: "{{ vcenter_validate_certs }}"
         name: "{{ item }}"
         state: present
-        snapshot_name: " {{ snap_name }}"
+        snapshot_name: " {{ snap1 }}"
         #vcenter_destination_folder: "myvm-ansible-template"
         folder: "{{ vm_folder }}"
         description: "This snapshot is created by Ansible Playbook"
