@@ -6,7 +6,7 @@
   collections:
     - community.vmware
   vars_files:
-    - vars-1.yml
+    - vars-1.yaml
   tasks:
     - name: create snapshot
       vmware_guest_snapshot:
