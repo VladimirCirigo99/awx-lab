@@ -1,0 +1,25 @@
+---
+- name: Check service status
+  hosts: all
+  become: false
+  tasks:
+    - name: Check API healty
+      ansible.builtin.uri:
+        url: https://api-ipcom-x-ocp-api-ipcom.apps.ocp4.ipcom.int/token
+        method: POST
+        headers:
+          accept: application/json
+          Authorization: orlando
+          Content-Type: application/x-www-form-urlencoded
+        body_format: form-urlencoded
+        body:
+          user: orlando
+          password: IPCom123.  
+        return_content: true
+        #content: "{}"
+        validate_certs: false
+      register: json_response
+      #msg: this.content
+    - name: "Getting token access"
+      debug:
+        msg: "{{json_response.json.token}}"

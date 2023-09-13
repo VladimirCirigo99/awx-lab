@@ -1,0 +1,16 @@
+---
+- name: Update Jboss EAP
+  hosts: all
+  tasks:
+    - name: start service
+      ansible.builtin.systemd:
+        name: 'jboss.service'
+        state: started
+      register: hello 
+    - name: Dump status
+      debug:
+        msg: "{{ hello.results | json_query('[*].{name: name, state: status.ActiveState}') }}"
+    - name:  Connect to CLI jboss
+      command:
+        /home/jboss/EAP-7.x/bin/jboss-cli.sh -c --controller=192.168.1.139
+      register: cli_result

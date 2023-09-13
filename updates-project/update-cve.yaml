@@ -1,0 +1,12 @@
+---
+- name: update packages for cve
+  hosts: all
+  become: false
+  gather_facts: false
+  tasks:
+    - name: apply updates with CVE list
+      shell:
+        yum update --cve "{{ item }}" -y
+      loop: "{{ cvelist }}"
+
+...

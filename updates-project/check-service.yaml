@@ -1,0 +1,23 @@
+---
+- name: Check service status
+  hosts: all
+  become: false
+  tasks:
+    - name: Restart service
+      ansible.builtin.systemd:
+        name: '{{ item }}.service'
+        state: restarted
+        daemon_reload: true
+      loop:
+        - smb
+        - sshd
+    - name: Check service
+      ansible.builtin.systemd:
+        name: '{{ item }}.service'
+      register: hello 
+      loop:
+        - smb
+        - sshd
+    - name: Dump status
+      debug:
+        msg: "{{ hello.results | json_query('[*].{name: name, state: status.ActiveState}') }}"

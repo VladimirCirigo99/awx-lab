@@ -1,0 +1,10 @@
+---
+vcenter_hostname: "vcenter.ipcom.com.mx"
+vcenter_datacenter: "Nativitas"
+vcenter_validate_certs: false
+vcenter_username: "dlagunas"
+vcenter_password: "Ch4ng3m3.2023"
+vm_name: -Rhel-6
+	 -jboss-test-1
+vm_template: "mytemplate"
+vm_folder: "myvm"

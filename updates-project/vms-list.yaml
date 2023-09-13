@@ -1,0 +1,4 @@
+vars
+  vm_name:
+    - jboss-test-1
+    - jboss-test-2
