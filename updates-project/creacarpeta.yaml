@@ -4,7 +4,7 @@
   become: false
   gather_facts: false
   vars_files: 
-    - vars.yml
+    - vars.yaml
   collections:
     - community.vmware
   tasks:
