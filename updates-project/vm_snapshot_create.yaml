@@ -19,5 +19,5 @@
         snapshot_name: "Ansible Managed Snapshost"
         folder: "{{ vm_folder }}"
         description: "This snapshot is created by Ansible Playbook"
-      name: "{{ vm_name }}"
+        name: "{{ vm_name }}"
 ...
