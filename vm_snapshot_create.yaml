@@ -21,4 +21,4 @@
         #vcenter_destination_folder: "myvm-ansible-template"
         folder: "{{ vm_folder }}"
         description: "This snapshot is created by Ansible Playbook"
-      #with_items: "{{ vm_name }}"
+        name: "{{ vm_name }}"
