@@ -4,7 +4,7 @@ vcenter_datacenter: "Nativitas"
 vcenter_validate_certs: false
 vcenter_username: "dlagunas"
 vcenter_password: "Ch4ng3m3.2023!"
-#vm_name: "myvm-ansible-template"
+vm_name: "jboss-test-1"
 vm_guestid: "rhel8_64Guest"
 vm_disk_gb: 10
 vm_disk_type: "thin"
