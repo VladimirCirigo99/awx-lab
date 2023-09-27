@@ -18,4 +18,5 @@ vcenter_destination_folder: "myvm-ansible-template"
 vm_state: "poweredon"
 vm_folder: "myvm-ansible-template"
 #vm_template: "rhel8-cli"
+snap_name: "ansible-snapshot"
 ...
