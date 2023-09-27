@@ -1,0 +1,19 @@
+---
+- name: perform storage vmotion of virtual machine
+  hosts: localhost
+  become: false
+  gather_facts: false
+  vars_files:
+    - vars.yml
+  collections:
+    - community.vmware
+  tasks:
+  - name: vmotion of virtual machine
+    vmware_vmotion:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: "{{ vcenter_validate_certs }}"
+      vm_name: "{{ vm_name }}"
+      destination_datastore: "{{ destination_datastore }}"
+    delegate_to: localhost

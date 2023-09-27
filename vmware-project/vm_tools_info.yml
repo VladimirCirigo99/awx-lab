@@ -1,0 +1,20 @@
+---
+- name: create vm demo
+  hosts: localhost
+  become: false
+  gather_facts: false
+  vars_files: 
+    - vars.yml
+  collections:
+    - community.vmware
+  tasks:
+    - name: Gather VMware tools info installed in VM specified by name
+      vmware_guest_tools_info:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        datacenter: "{{ datacenter_name }}"
+        name: "{{ vm_name }}"
+      delegate_to: localhost
+      register: vmtools_info
+...

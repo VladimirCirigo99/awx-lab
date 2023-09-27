@@ -1,0 +1,25 @@
+---
+- name: create vm demo
+  hosts: localhost
+  become: false
+  gather_facts: false
+  vars_files:
+    - vars.yml
+  collections:
+    - community.vmware
+  tasks:
+  - name: run command inside a virtual machine
+    vmware_vm_shell:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      datacenter: "{{ vcenter_datacenter }}"
+      validate_certs: "{{ vcenter_validate_certs }}"
+      folder: "{{ vcenter_destination_folder }}"
+      vm_id: "{{ vm_name }}"
+      vm_username: root
+      vm_password: ipcom123.
+      vm_shell: "/bin/echo"
+      vm_shell_args: "Archivo creado por ansible  >> myFile1 "
+    delegate_to: localhost
+    register: shell_command_output

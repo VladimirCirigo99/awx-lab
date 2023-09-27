@@ -1,0 +1,55 @@
+---
+- name: Resize disk to the virtual machine
+  hosts: localhost
+  become: false
+  gather_facts: false
+  vars_files:
+    - vars-resize.yml
+  collections:
+    - community.vmware
+  tasks:
+    - name: shutdown virtual machine
+      vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        datacenter: "{{ vcenter_datacenter }}"
+        name: "{{ vm_name }}"
+        state: shutdownguest
+      delegate_to: localhost
+      failed_when: vm_shutdown.instance.hw_power_status != 'poweredOff' and vm_shutdown.changed ==false
+      register: vm_shutdown
+    - name: wait 15 seconds
+      ansible.builtin.pause:
+        seconds: 20
+    - name: Resize disks
+      vmware_guest_disk:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        datacenter: "{{ vcenter_datacenter }}"
+        name: "{{ vm_name }}"
+        disk:
+          - size_gb: "{{ vm_disk_gb }}"
+            type: "{{ vm_disk_type }}"
+            datastore: "{{ vm_disk_datastore }}"
+            state: present
+            scsi_controller: "{{ vm_disk_scsi_controller }}"
+            unit_number: "{{ vm_disk_scsi_unit }}"
+            scsi_type: "{{ vm_disk_scsi_type }}"
+            disk_mode: "{{ vm_disk_mode }}"
+      delegate_to: localhost
+    - name: shutdown virtual machine
+      vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        datacenter: "{{ vcenter_datacenter }}"
+        name: "{{ vm_name }}"
+        state: poweredon
+      delegate_to: localhost
+
+...

@@ -1,0 +1,22 @@
+---
+vcenter_hostname: "vcenter.ipcom.com.mx"
+esxi_hostname: "192.168.1.231"
+esxi_username: "root"
+esxi_password: "ipcom123."
+vcenter_datacenter: "Nativitas"
+vcenter_validate_certs: false
+vcenter_username: "dlagunas"
+vcenter_password: "Ch4ng3m3.2023"
+#vm_name: "myvm-ansible"
+vm_guestid: "rhel7Guest"
+vm_disk_gb: 10
+vm_disk_type: "thin"
+vm_disk_datastore: "Lun_Pruebas"
+vm_hw_ram_mb: 2048
+vm_hw_cpu_n: 1
+vm_hw_scsi: "paravirtual"
+vm_net_name: "VM Network"
+vm_net_type: "vmxnet3"
+vcenter_destination_folder: "myvm-ansible"
+vm_state: "poweredoff"
+...

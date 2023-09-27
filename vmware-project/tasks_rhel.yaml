@@ -1,0 +1,53 @@
+---
+- name:  Tasks post installation
+  hosts: all
+  become: false
+  gather_facts: false
+  tasks:
+    - name: Register host and auto-subscribe to available content.
+      redhat_subscription:
+        state: present
+        username: david.lagunas
+        password: Alfabravo1990
+        auto_attach: true
+    - name: Create a new regular user with sudo privileges
+      user: 
+        name: "{{ created_username }}"
+        state: present
+        groups: wheel
+        append: true
+        create_home: true
+    - name: Upgrade all packages
+      yum:
+        name: '*'
+        state: latest
+    - name: Install required system packages
+      yum: 
+        name:
+          - httpd
+          - postgresql
+          - postgresql-server 
+        state: present
+    - name: Firewall allow http connections
+      firewalld:
+        service: http
+        immediate: true
+        permanent: true
+        state: enabled
+    - name: Start service http
+      service:
+        name: httpd
+        state: started
+    - name: Find if postgreSQL is initialized
+      stat:
+        path: "/var/lib/pgsql/data/pg_hba.conf"
+      register: postgres_data
+    - name: Initialize PostgreSQL
+      shell: "postgresql-setup initdb"
+      when: not postgres_data.stat.exists
+    - name: Start and enable postgres service
+      service:
+        name: postgresql
+        state: started
+        enabled: yes
+...

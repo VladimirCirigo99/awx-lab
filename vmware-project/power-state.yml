@@ -1,0 +1,22 @@
+---
+- name: set power state
+  hosts: localhost
+  become: false
+  gather_facts: false
+  vars_files: 
+    - vars.yml
+  collections:
+    - community.vmware
+  tasks:
+    - name: Set the state of a virtual machine 
+      vmware_guest_powerstate: 
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        # datacenter: "{{ vcenter_datacenter }}"
+        folder: "{{ vcenter_destination_folder }}"
+        name: "{{ vm_name }}"
+        state: "{{ power_state }}"
+      delegate_to: localhost
+...

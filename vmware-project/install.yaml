@@ -1,0 +1,9 @@
+---
+- name: Instalar paquetes con yum
+  hosts: all
+  tasks:
+  - name: instalar
+    yum:
+      name: "{{ package_var }}"
+      state: latest
+...

@@ -1,0 +1,19 @@
+---
+- name: create vm demo
+  hosts: localhost
+  become: false
+  gather_facts: false
+  vars_files: 
+    - vars.yml
+  collections:
+    - community.vmware
+  tasks:
+    - name: create folder
+      vmware_about_info:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+      delegate_to: localhost
+      register: vcenter_about_info
+...
