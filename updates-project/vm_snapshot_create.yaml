@@ -15,7 +15,6 @@
         password: "{{ vcenter_password }}"
         datacenter: "{{ vcenter_datacenter }}"
         validate_certs: "{{ vcenter_validate_certs }}"
-        name: jboss-test-1
         state: present
         snapshot_name: "Ansible Managed Snapshost"
         folder: "/{{ vcenter_datacenter }}/awx-folder/"
