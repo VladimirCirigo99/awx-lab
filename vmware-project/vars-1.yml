@@ -4,7 +4,7 @@ vcenter_datacenter: "Nativitas"
 vcenter_validate_certs: false
 vcenter_username: "dlagunas"
 vcenter_password: "Ch4ng3m3.2023!"
-vm_name: "jboss-test-1"
+vm_name: "jboss-test-2"
 vm_guestid: "rhel8_64Guest"
 vm_disk_gb: 10
 vm_disk_type: "thin"
@@ -16,7 +16,7 @@ vm_net_name: "VM Network"
 vm_net_type: "vmxnet3"
 vcenter_destination_folder: "myvm-ansible-template"
 vm_state: "poweredon"
-vm_folder: "myvm-ansible-template"
+vm_folder: "satellite"
 vm_template: "rhel8-cli"
 snap_name: "ansible-snapshot"
 ...
