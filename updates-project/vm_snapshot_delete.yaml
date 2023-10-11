@@ -17,7 +17,7 @@
         validate_certs: "{{ vcenter_validate_certs }}"
         name: "{{ item }}"
         state: absent
-        snapshot_name: "Ansible Managed Snapshost"
+        snapshot_name: "ansible-snapshot"
         folder: "{{ vm_folder }}"
       with_items: "{{ vm_name }}"
 ...
