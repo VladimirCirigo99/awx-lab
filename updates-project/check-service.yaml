@@ -2,6 +2,8 @@
 - name: Check service status
   hosts: all
   become: false
+  collections:
+    - community.vmware
   tasks:
     - name: Restart service
       ansible.builtin.systemd:
