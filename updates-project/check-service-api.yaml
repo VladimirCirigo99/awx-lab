@@ -1,25 +1,57 @@
+
 ---
 - name: Check service status
   hosts: all
   become: false
   tasks:
-    - name: Check API healty
+    - name: Access login
       ansible.builtin.uri:
         url: https://api-ipcom-x-ocp-api-ipcom.apps.ocp4.ipcom.int/token
         method: POST
         headers:
           accept: application/json
-          Authorization: orlando
+          Authorization: David
           Content-Type: application/x-www-form-urlencoded
         body_format: form-urlencoded
         body:
-          user: orlando
-          password: IPCom123.  
+          user: David
+          password: IPCom123.
         return_content: true
-        #content: "{}"
         validate_certs: false
       register: json_response
-      #msg: this.content
     - name: "Getting token access"
       debug:
         msg: "{{json_response.json.token}}"
+    - name: Testing accounts on GET API
+      ansible.builtin.uri:
+        url: https://api-ipcom-x-ocp-api-ipcom.apps.ocp4.ipcom.int/account
+        method: GET
+        headers:
+          accept: application/json
+          Authorization: "{{json_response.json.token}}"
+          Content-Type: application/x-www-form-urlencoded
+        return_content: true
+        validate_certs: false
+        status_code: 302
+    - name: Create an account with POST method
+      ansible.builtin.uri:
+        url: https://api-ipcom-x-ocp-api-ipcom.apps.ocp4.ipcom.int/account
+        method: POST
+        headers:
+          accept: application/json
+          Authorization: "{{json_response.json.token}}"
+          Content-Type: application/json
+        return_content: true
+        validate_certs: false
+        body_format: json
+        body: "{{ lookup('ansible.builtin.file','accounts.json') }}"
+        status_code: 201
+    - name: Delete user acccount
+      ansible.builtin.uri:
+        url: https://api-ipcom-x-ocp-api-ipcom.apps.ocp4.ipcom.int/account/9
+        method: DELETE
+        headers:
+          Authorization: "{{json_response.json.token}}"
+        return_content: true
+        validate_certs: false
+        status_code: 200
