@@ -20,6 +20,6 @@
       loop:
         - smb
         - sshd
-    - name: Dump status
-      debug:
-        msg: "{{ hello.results | json_query('[*].{name: name, state: status.ActiveState}') }}"
+#    - name: Dump status
+#      debug:
+#        msg: "{{ hello.results | json_query('[*].{name: name, state: status.ActiveState}') }}"
